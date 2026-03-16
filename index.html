@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>推し活アプリ</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main>
+      <h1 class="app-title">🗓 推し活支出カレンダー</h1>
+      <div class="app">
+        <nav class="page-nav">
+          <button id="showCalendarBtn">カレンダー</button>
+          <button id="showIdolBtn">カード</button>
+        </nav>
+
+        <div id="calendarPage">
+          <!-- カレンダー部分全体 -->
+          <section id="calendar">
+            <!-- ゆくゆく今日の日付をjsで反映 -->
+            <div class="calendar-header">
+              <h1 id="today"></h1>
+              <p id="selectedDateText">日付を選択してください</p>
+              <!-- 月跨ぎボタン部分 -->
+              <div class="calendar-nav">
+                <button id="backwardBtn">◀︎</button>
+                <button id="forwardBtn">▶︎</button>
+              </div>
+            </div>
+            <!-- 曜日セル部分 -->
+            <div id="dayGrid"></div>
+            <!-- 日付セル部分 -->
+            <div id="calendarGrid"></div>
+
+            <!-- 支出月分け欄 -->
+            <div id="monthTotal">今月の支出：¥0</div>
+
+            <!-- その日の予定表示 -->
+            <h3>この日の予定</h3>
+            <div id="selectedEvents"></div>
+
+            <!-- 予定追加欄 -->
+            <div id="eventInputArea">
+              <input type="text" id="eventInput" placeholder="予定を入力" />
+              <input type="number" id="amountInput" placeholder="金額" />
+              <select id="idolSelect"></select>
+
+              <button id="saveEventBtn">追加</button>
+            </div>
+          </section>
+        </div>
+
+        <div id="idolPage">
+          <!-- 推しのリスト部分 -->
+          <section id="idolList">
+            <h2>推しカード一覧</h2>
+            <button id="addIdolBtn">＋ 推しを追加</button>
+            <button id="deleteIdolsBtn">− 全て削除</button>
+
+            <div id="idolInputArea">
+              <input type="text" id="idolInput" placeholder="推しのお名前" />
+              <input type="color" id="addIdolColor" />
+              <button id="saveIdolBtn">登録</button>
+            </div>
+            <div id="idolCards"></div>
+
+            <h3>予定一覧</h3>
+            <div id="idolEvents"></div>
+
+            <!-- 支出グラフ -->
+            <h3>推し別支出</h3>
+            <div class="idol-chart">
+              <canvas id="idolChart"></canvas>
+            </div>
+
+            <h3>月別支出</h3>
+            <div class="month-chart">
+              <canvas id="monthChart"></canvas>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

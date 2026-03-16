@@ -1,0 +1,432 @@
+/* カラーパレット */
+:root {
+  /* メインカラー */
+  --accent: #b6cffa;
+  --accent-soft: #e9e0fa;
+  --accent-mint: #d1f5e9;
+
+  /* テキスト */
+  --text-main: #5f5a73;
+  --text-soft: #96939e;
+  --text-light: #bab0e4;
+
+  /* ガラスUI */
+  --glass-bg: rgba(255, 255, 255, 0.25);
+  --glass-border: rgba(255, 255, 255, 0.45);
+
+  /* 影 */
+  --shadow-soft: 0 4px 12px rgba(120, 130, 160, 0.12);
+  --shadow-strong: 0 8px 24px rgba(120, 130, 160, 0.18);
+}
+
+body {
+  margin: 0;
+  /* CSSで要素の最低高さを画面（ビューポート）の高さ100%に設定する指定 */
+  min-height: 100vh;
+  background: linear-gradient(
+    135deg,
+    var(--accent),
+    var(--accent-soft),
+    var(--accent-mint)
+  );
+  background-attachment: fixed;
+  color: var(--text-main);
+}
+
+.app-title {
+  text-align: center;
+  margin-bottom: 18px;
+
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+
+  color: var(--text-soft);
+}
+
+button {
+  border-radius: 12px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  color: var(--text-main);
+  padding: 8px 12px;
+
+  cursor: pointer;
+  transition:
+    transform 0.1s,
+    box-shadow 0.1s;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-soft);
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+.calendar-nav button {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+
+/* カレンダー欄 */
+#calendar {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 24px;
+  border-radius: 24px;
+
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-strong);
+
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+#today {
+  margin: 0;
+  color: var(--text-light);
+  font-size: medium;
+}
+
+.today-cell {
+  border-radius: 10px;
+  font-weight: bold;
+  background: rgba(217, 209, 255, 0.55);
+  border: 2px solid rgba(190, 170, 255, 0.6);
+}
+
+#selectedDateText {
+  color: var(--text-light);
+  font-size: smaller;
+}
+
+#dayGrid,
+#calendarGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  color: var(--text-light);
+}
+
+#calendarGrid {
+  transition: 0.25s ease;
+}
+
+#dayGrid {
+  color: var(--text-light);
+}
+
+.day-cell {
+  border: 1px solid var(--glass-border);
+  padding: 8px;
+  margin-bottom: 8px;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 8px;
+}
+
+.calendar-cell {
+  border: 1px solid var(--glass-border);
+  border-radius: 10px;
+  max-height: 90px;
+  min-height: 90px;
+  padding: 6px 8px;
+  font-size: 13px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+
+  overflow: hidden;
+  transition:
+    transform 0.15s,
+    box-shadow 0.15s;
+}
+
+.calendar-cell:hover {
+  cursor: pointer;
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-soft);
+}
+
+.selected-cell {
+  outline: 2px solid rgba(212, 193, 248, 0.7);
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.calendar-nav {
+  display: flex;
+  gap: 8px;
+}
+
+#eventInputArea {
+  display: none;
+  margin-top: 16px;
+
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* 入力幅の調整 */
+#eventInput {
+  flex: 2;
+}
+
+#amountInput {
+  flex: 1;
+}
+
+#idolSelect {
+  flex: 1;
+}
+
+.selected-event {
+  background: #d3d5e1;
+  border-radius: 6px;
+}
+
+#eventInput {
+  border-radius: 12px;
+  color: var(--text-light);
+  padding: 8px 12px;
+  margin-top: 10px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+}
+
+#eventInput::placeholder {
+  color: var(--text-soft);
+}
+
+/* 推しのリスト欄装飾 */
+/* 初めは隠しておく */
+#idolInputArea {
+  display: none;
+  margin-top: 14px;
+  padding: 16px;
+  border-radius: 18px;
+  box-shadow: var(--shadow-soft);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+}
+
+#idolInput {
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  color: var(--text-main);
+  border: 1px solid var(--glass-border);
+}
+
+#idolInput::placeholder {
+  color: #aaa6b8;
+}
+
+#idolCards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.idol-card {
+  border-radius: 14px;
+  padding: 12px 16px;
+  margin-top: 10px;
+  color: var(--text-soft);
+  font-weight: 600;
+  backdrop-filter: blur(6px);
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  cursor: pointer;
+  transition:
+    transform 0.15s,
+    box-shadow 0.15s;
+}
+
+.idol-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-strong);
+}
+
+.idol-list {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.app {
+  max-width: 420px;
+  margin: 40px auto;
+  padding: 24px;
+  border-radius: 20px;
+
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(12px);
+
+  box-shadow: var(--shadow-strong);
+
+  position: relative;
+}
+
+.app::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  border-radius: 20px;
+
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0.35),
+    rgba(255, 255, 255, 0.05)
+  );
+  pointer-events: none;
+}
+
+.event {
+  font-size: 10px;
+  margin-top: 4px;
+  padding: 3px 6px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.45);
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.event-list {
+  overflow-y: auto;
+  max-height: 60px;
+}
+
+/* 初めは非表示にしておく */
+#idolPage {
+  display: none;
+}
+
+h2 {
+  color: var(--text-soft);
+}
+
+/* 予定追加欄 */
+input,
+select {
+  border-radius: 12px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  color: var(--text-main);
+  padding: 8px 12px;
+  font-size: 14px;
+}
+
+input::placeholder {
+  color: var(--text-soft);
+}
+
+/* 今月の支出 */
+#monthTotal {
+  margin: 20px 0;
+  padding: 10px 14px;
+  border-radius: 10px;
+
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.35);
+
+  background: rgba(255, 255, 255, 0.35);
+  border: 1px solid var(--glass-border);
+
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-soft);
+
+  box-shadow: var(--shadow-soft);
+}
+
+/* 月別支出 */
+.month-chart {
+  margin-top: 20px;
+}
+
+/* 今日の予定 */
+#selectedEvents {
+  margin-top: 10px;
+  margin-bottom: 12px;
+}
+
+#selectedEvents div {
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.35);
+  margin-bottom: 4px;
+  font-size: 13px;
+  color: var(--text-main);
+}
+
+h3 {
+  font-size: 13px;
+  font-weight: 500;
+
+  letter-spacing: 0.08em;
+
+  color: var(--text-soft);
+
+  margin-top: 14px;
+  margin-bottom: 6px;
+}
+
+/* メディアクエリ */
+@media (max-width: 600px) {
+  #calendar {
+    margin: 16px;
+    padding: 16px;
+  }
+
+  #dayGrid,
+  #calendarGrid {
+    gap: 4px;
+  }
+
+  .event {
+    min-height: 70px;
+    max-height: 70px;
+    padding: 4px;
+  }
+
+  .day-cell {
+    padding: 4px;
+    font-size: 12px;
+  }
+
+  .event {
+    font-size: 12px;
+  }
+
+  .event-list {
+    max-height: 40px;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+}
