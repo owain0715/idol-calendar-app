@@ -371,9 +371,9 @@ function renderCalendar() {
 
   //選択中の日付関連
   if (selectedDate) {
-    selectedDateTextEl.textContent = `選択中の日付：${formatDate(selectedDate)}`;
+    selectedDateTextEl.textContent = `選択中：${formatDate(selectedDate)}`;
   } else {
-    selectedDateTextEl.textContent = "日付を選択してください";
+    selectedDateTextEl.textContent = "日付を選択してね";
   }
 
   // 再描画の前に中身を空にする
